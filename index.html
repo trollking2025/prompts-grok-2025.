@@ -1,0 +1,528 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompts IA Troll & Hustle 2025 | Scripts ChatGPT Marketing Français</title>
+    <meta name="description" content="Scripts ChatGPT optimisés 2025 pour hustlers : troll viral X, email marketing, Reels Instagram, side business et clash pro. Format PDF, résultats garantis.">
+    <meta name="keywords" content="prompts chatgpt français 2025, scripts ia marketing, troll ia hustle, automation contenu, email marketing ai, reels instagram viral">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #fbbf24;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        .bundle-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bundle-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .bundle-price {
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+        
+        .old-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .script-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .script-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .script-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .script-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .script-info {
+            flex: 1;
+        }
+        
+        .script-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .script-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .script-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .script-features li {
+            padding: 8px 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .script-features li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .price-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-top: 2px solid #f0f0f0;
+            padding-top: 20px;
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-bundle {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            padding: 20px 40px;
+            font-size: 1.2rem;
+        }
+        
+        .btn-bundle:hover {
+            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.4);
+        }
+        
+        .download-link {
+            color: #667eea;
+            font-size: 0.9rem;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        .download-link:hover {
+            text-decoration: underline;
+        }
+        
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .benefit-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+        }
+        
+        .benefit-text {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        
+        .footer-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .keywords {
+            color: #999;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .script-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .price-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ Prompts IA Troll & Hustle 2025</h1>
+            <p class="subtitle">Scripts ChatGPT ultra-optimisés pour hustlers et créateurs réseaux sociaux</p>
+            <span class="tag">📄 Format PDF • Prêt à copier-coller • Résultats garantis</span>
+        </header>
+        
+        <!-- Bundle Section -->
+        <section class="bundle-section">
+            <div class="bundle-title">🎁 BUNDLE COMPLET</div>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Les 5 scripts + bonus exclusifs</p>
+            <div class="bundle-price">
+                <span class="old-price">75€</span>
+                50€
+            </div>
+            <p style="margin-bottom: 25px; font-size: 1.1rem;">Économise 25€ • Accès immédiat à tous les PDFs</p>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display: inline-block;">
+                <input type="hidden" name="cmd" value="_xclick">
+                <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                <input type="hidden" name="item_name" value="Bundle Complet - Prompts IA Troll & Hustle 2025">
+                <input type="hidden" name="amount" value="50.00">
+                <input type="hidden" name="currency_code" value="EUR">
+                <button type="submit" class="btn btn-bundle">🚀 Acheter le Bundle - 50€</button>
+            </form>
+            <a href="https://drive.google.com/file/d/1qIGyFPS5lpvSyyTaX1LcP6NwcltRH2wy/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+        </section>
+        
+        <!-- Benefits Section -->
+        <div class="benefits">
+            <div class="benefit-card">
+                <div class="benefit-icon">✅</div>
+                <div class="benefit-title">Testés 2025</div>
+                <p class="benefit-text">Optimisés pour ChatGPT 4 et les dernières versions d'IA</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-title">Résultats Rapides</div>
+                <p class="benefit-text">Copie-colle et obtiens du contenu pro en 30 secondes</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">💪</div>
+                <div class="benefit-title">Style Hustle</div>
+                <p class="benefit-text">Ton authentique, zéro corporate bullshit</p>
+            </div>
+        </div>
+        
+        <!-- Script 1: Troll Viral X -->
+        <div class="script-card">
+            <div class="script-header">
+                <div class="script-icon">🔥</div>
+                <div class="script-info">
+                    <h2 class="script-title">Troll Viral X (Twitter)</h2>
+                    <p class="script-description">Scripts ultra-optimisés pour clasher et créer du débat viral sur X/Twitter. 12 prompts pour générer des tweets qui font réagir et deviennent viraux.</p>
+                </div>
+            </div>
+            <ul class="script-features">
+                <li>Roasts intelligents et hot takes qui créent le débat</li>
+                <li>4 variations : tech, lifestyle, controversé, thread killer</li>
+                <li>Optimisé 280 caractères + timing optimal de post</li>
+                <li>Exemples concrets de tweets ayant généré +10K impressions</li>
+            </ul>
+            <div class="price-section">
+                <div class="price">15€</div>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                    <input type="hidden" name="item_name" value="Script Troll Viral X - troll-x.pdf">
+                    <input type="hidden" name="amount" value="15.00">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <button type="submit" class="btn">Acheter troll-x.pdf</button>
+                </form>
+                <a href="https://drive.google.com/file/d/1A2UAZw-X7Fssm2RVRjb4uDtlke5wIx0I/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+            </div>
+        </div>
+        
+        <!-- Script 2: Email Marketing Auto -->
+        <div class="script-card">
+            <div class="script-header">
+                <div class="script-icon">💰</div>
+                <div class="script-info">
+                    <h2 class="script-title">Email Marketing Auto</h2>
+                    <p class="script-description">Séquences email cold qui convertissent à +5% (testé et approuvé). 8 formules pour obtenir des réponses et signer des clients.</p>
+                </div>
+            </div>
+            <ul class="script-features">
+                <li>Cold email B2B, relances, partenariats influenceurs</li>
+                <li>Lignes d'objet testées (3 variants par email)</li>
+                <li>Calendrier séquence 7 jours + stratégie A/B testing</li>
+                <li>Templates prêts à personnaliser selon ton offre</li>
+            </ul>
+            <div class="price-section">
+                <div class="price">15€</div>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                    <input type="hidden" name="item_name" value="Script Email Marketing Auto - email-auto.pdf">
+                    <input type="hidden" name="amount" value="15.00">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <button type="submit" class="btn">Acheter email-auto.pdf</button>
+                </form>
+                <a href="https://drive.google.com/file/d/1LeqPJWTFlvd1VsHc-Yy29YLhN1t46nCA/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+            </div>
+        </div>
+        
+        <!-- Script 3: Contenu Insta Rapide -->
+        <div class="script-card">
+            <div class="script-header">
+                <div class="script-icon">📱</div>
+                <div class="script-info">
+                    <h2 class="script-title">Contenu Insta Rapide</h2>
+                    <p class="script-description">Prompts pour Reels et posts viraux en 15 secondes chrono. 15 templates pour exploser l'algorithme Instagram 2025.</p>
+                </div>
+            </div>
+            <ul class="script-features">
+                <li>Concepts Reels : lifestyle, business, fitness, transformation</li>
+                <li>Hooks première seconde + structure 3 scènes</li>
+                <li>Calendrier contenu 30 jours + 50+ formules de hooks</li>
+                <li>Stratégie hashtags optimisée (5 hashtags stratégiques)</li>
+            </ul>
+            <div class="price-section">
+                <div class="price">15€</div>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                    <input type="hidden" name="item_name" value="Script Contenu Insta Rapide - insta-reels.pdf">
+                    <input type="hidden" name="amount" value="15.00">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <button type="submit" class="btn">Acheter insta-reels.pdf</button>
+                </form>
+                <a href="https://drive.google.com/file/d/1TvJUAzXKSAag3UQ0p6GJm9J3BcpkYxJC/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+            </div>
+        </div>
+        
+        <!-- Script 4: Hustle Side Business -->
+        <div class="script-card">
+            <div class="script-header">
+                <div class="script-icon">🚀</div>
+                <div class="script-info">
+                    <h2 class="script-title">Hustle Side Business</h2>
+                    <p class="script-description">Plan complet side business en 7 jours avec 0€ de départ. 5 modèles business testés pour générer tes premiers euros.</p>
+                </div>
+            </div>
+            <ul class="script-features">
+                <li>Roadmap jour par jour avec actions concrètes</li>
+                <li>5 modèles : freelance, dropservicing, contenu, consulting</li>
+                <li>Liste outils gratuits + plateformes pour premiers clients</li>
+                <li>Templates pitchs + stratégie pricing débutant</li>
+            </ul>
+            <div class="price-section">
+                <div class="price">15€</div>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                    <input type="hidden" name="item_name" value="Script Hustle Side Business - hustle-biz.pdf">
+                    <input type="hidden" name="amount" value="15.00">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <button type="submit" class="btn">Acheter hustle-biz.pdf</button>
+                </form>
+                <a href="https://drive.google.com/file/d/1bRhGFsDe2hT2k87WUPbK-UR5jjguSLNO/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+            </div>
+        </div>
+        
+        <!-- Script 5: Clash Pro Réunions -->
+        <div class="script-card">
+            <div class="script-header">
+                <div class="script-icon">💼</div>
+                <div class="script-info">
+                    <h2 class="script-title">Clash Pro Réunions</h2>
+                    <p class="script-description">Réponses calibrées pour clasher en mode pro sans te griller. 20 scénarios avec scripts pour gérer critiques et conflits.</p>
+                </div>
+            </div>
+            <ul class="script-features">
+                <li>Scripts 3 phrases max : confiant mais pas arrogant</li>
+                <li>Situations : critique résultats, question piège, sabotage</li>
+                <li>Body language tips + gestion d'escalade de conflit</li>
+                <li>Bonus négociation salaire/augmentation</li>
+            </ul>
+            <div class="price-section">
+                <div class="price">15€</div>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_xclick">
+                    <input type="hidden" name="business" value="naamoune.smaine@yahoo.fr">
+                    <input type="hidden" name="item_name" value="Script Clash Pro Réunions - clash-pro.pdf">
+                    <input type="hidden" name="amount" value="15.00">
+                    <input type="hidden" name="currency_code" value="EUR">
+                    <button type="submit" class="btn">Acheter clash-pro.pdf</button>
+                </form>
+                <a href="https://drive.google.com/file/d/1eyez4P5AcUfof5Y30V3p9hWXNYOYtFP2/view?usp=sharing" class="download-link">Télécharger après paiement</a>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">📧 Support : Téléchargement instantané après paiement PayPal</p>
+            <p class="footer-text">🔒 Paiement sécurisé • 💯 Satisfait ou remboursé 30 jours</p>
+            <p class="keywords">Keywords : prompts chatgpt français 2025 • scripts ia marketing • troll ia hustle • automation contenu réseaux sociaux • email marketing ai • reels instagram viral • side business prompts • clash professionnel ia</p>
+        </footer>
+    </div>
+</body>
+</html>
